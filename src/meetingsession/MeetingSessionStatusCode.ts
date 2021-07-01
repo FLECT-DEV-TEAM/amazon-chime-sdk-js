@@ -83,7 +83,8 @@ export enum MeetingSessionStatusCode {
   /**
    * The Chime SDK for JavaScript failed to establish a signaling connection because
    * you or someone else deleted the attendee using the DeleteAttendee API action
-   * in your server application.
+   * in your server application, or you use the attendee response from the finishd meeting
+   * you created with the same ClientRequestToken parameter before.
    * https://docs.aws.amazon.com/chime/latest/APIReference/API_DeleteAttendee.html
    */
   SignalingBadRequest = 12,
