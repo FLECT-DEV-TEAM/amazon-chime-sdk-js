@@ -3,8 +3,8 @@
 
 import * as chai from 'chai';
 import * as sinon from 'sinon';
-import { VideoPriorityBasedPolicyConfig } from '../../src';
 
+import { VideoPriorityBasedPolicyConfig } from '../../src';
 import AudioVideoTileController from '../../src/audiovideocontroller/AudioVideoController';
 import NoOpAudioVideoTileController from '../../src/audiovideocontroller/NoOpAudioVideoController';
 import ClientMetricReportDirection from '../../src/clientmetricreport/ClientMetricReportDirection';
@@ -979,7 +979,7 @@ describe('VideoPriorityBasedPolicy', () => {
   describe('VideoPriorityBasedPolicyConfig', () => {
     it('unstable network with unstable preset', () => {
       const config = VideoPriorityBasedPolicyConfig.UnstableNetworkPreset;
-      policy = new VideoPriorityBasedPolicy(logger, config);
+      policy.setVideoPriorityBasedPolicyConfigs(config);
       updateIndexFrame(videoStreamIndex, 3, 300, 1200);
       policy.updateIndex(videoStreamIndex);
       const metricReport = new DefaultClientMetricReport(logger);

@@ -10,6 +10,8 @@ The existing `AllHighestVideoBandwidthPolicy` and `AdaptiveProbePolicy` both sub
 
 Under constrained networks where simulcast is in use, `VideoPriorityBasedPolicy` may lower the resolution of remote video sources, starting with the lowest priority sources. All video sources are separeted into multiple groups by different priorities. If all video sources within same priority group are at the lowest resolution possible, or simulcast is not being used, the policy may further pause video tiles until the network has recovered. Same operations will be repeated group by group, from priority lowest to highest.
 
+Video might be paused if a network event occurs. To configure the network event delays for the `VideoPriorityBasedPolicy`, use `VideoPriorityBasedPolicyConfig` to set network issue response delay and recovery delay factors in range 0-1. The first factor will be used to control the delays before reducing subscribed video bitrate, and the latter is for delays before starting to increase bitrates after a network event and delays between increasing video bitrates on each individual stream.
+
 A typical workflow to use this policy would be:
 
 1. When creating `meetingSession.configuration`, construct and set a `VideoPriorityBasedPolicy` object as the` videoDownlinkBandwidthPolicy`
@@ -58,6 +60,18 @@ Be aware of the following when calling this function:
 
 **Receiving notifications that a remote video was paused due to bandwidth constraint**
 If a remote video source is paused due to insufficient bandwidth, then the application will be notified through the existing notification mechanism by setting the VideoTileState to pausedDueToBandwidth. Note that there is already a member named `paused` in VideoTileState and that is used to track if the application paused the remote video.
+
+**Configure network event delays**
+Remote video source will be paused or unpaused based on bandwidth fluctuation. To configure the delay to pause/unpause, pass in two float values between _0 to 1_ (representing network issue response factor and recovery factor respectively) in initialization of `VideoPriorityBasedPolicyConfig`, and then assign the config to `VideoPriorityBasedPolicy`. The closer to 0 the value is, the smaller the delay is, and vice versa. Use the following setter to change the config dynamically:
+
+```ts
+setVideoPriorityBasedPolicyConfigs(config: VideoPriorityBasedPolicyConfig): void
+```
+
+You can also use the following presets according to usage:
+* *Default Preset*: When no specific use cases is defined. You want to select default preset for most of time. It is used when a `VideoPriorityBasedPolicyConfig` is not given during the initialization of `VideoPriorityBasedPolicy`.
+* *Unstable Network Preset*: If expecting a lot of mobile usage, builders can choose unstable network preset. It has less confidence in the network so it takes longer wait when network is recovered in case the recovery is just a spike.
+* *Stable Network Preset*: Select stable network preset when the network is expected to stay stable. Use cases are: unified communications client, Ethernet connection, etc. It has more confidence in the network so it takes longer wait when a network event is happened in case it will recover soon.
 
 ## Builder Code Sample
 
