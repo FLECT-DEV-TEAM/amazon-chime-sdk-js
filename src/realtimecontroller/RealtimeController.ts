@@ -249,4 +249,10 @@ export default interface RealtimeController {
    * Unsubscribes from receiving callbacks when fatal errors occur
    */
   realtimeUnsubscribeToFatalError(callback: (error: Error) => void): void;
+
+  /**
+   * Stores attendee id to external user id mappings
+   * @see RealtimeState.attendeeIdToExternalUserId
+   */
+  attendeeIdToExternalUserId(attendeeId: string): string;
 }

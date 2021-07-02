@@ -16,4 +16,11 @@ export default interface AudioVideoFacade
     RealtimeControllerFacade,
     ActiveSpeakerDetectorFacade,
     DeviceController,
-    ContentShareControllerFacade {}
+    ContentShareControllerFacade {
+
+    /**
+     * Stores attendee id to external user id mappings
+     * @see RealtimeState.attendeeIdToExternalUserId
+     */
+    attendeeIdToExternalUserId(attendeeId: string): string;
+}

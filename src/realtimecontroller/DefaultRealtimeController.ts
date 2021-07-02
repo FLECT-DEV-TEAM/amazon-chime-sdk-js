@@ -447,6 +447,10 @@ export default class DefaultRealtimeController implements RealtimeController {
     }
   }
 
+  attendeeIdToExternalUserId(attendeeId: string): string {
+    return this.state.attendeeIdToExternalUserId[attendeeId];
+  }
+
   // Internals
 
   private setAudioInputEnabled(enabled: boolean): void {
