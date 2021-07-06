@@ -1,6 +1,6 @@
 {
-  "name": "amazon-chime-sdk-js",
-  "version": "2.13.0",
+  "name": "amazon-chime-sdk-js-flect",
+  "version": "2.13.0_f001",
   "description": "Amazon Chime SDK for JavaScript",
   "main": "build/index.js",
   "types": "build/index.d.ts",
