@@ -472,4 +472,8 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
     this.trace('getRemoteVideoSources', null, result);
     return result;
   }
+
+  attendeeIdToExternalUserId(attendeeId: string): string {
+    return this.realtimeController.attendeeIdToExternalUserId(attendeeId);
+  }
 }
