@@ -37,7 +37,7 @@ export default interface AudioVideoObserver {
   /**
    * Called whenever a tile has been removed.
    */
-  videoTileWasRemoved?(tileId: number, boundExternalUserId?: string): void;
+  videoTileWasRemoved?(tileId: number, boundExternalUserId?: string, isContent?: boolean): void;
 
   /**
    * Called when video availability has changed. This information can be used to decide whether to

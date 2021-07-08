@@ -164,10 +164,11 @@ export default class DefaultVideoTileController implements VideoTileController {
       this.currentLocalTile = null;
     }
     const boundExternalUserId = tile.state().boundExternalUserId;
+    const isContent = tile.state().isContent;
     tile.destroy();
     this.tileMap.delete(tileId);
     this.audioVideoController.forEachObserver((observer: AudioVideoObserver) => {
-      Maybe.of(observer.videoTileWasRemoved).map(f => f.bind(observer)(tileId, boundExternalUserId));
+      Maybe.of(observer.videoTileWasRemoved).map(f => f.bind(observer)(tileId, boundExternalUserId, isContent));
     });
     this.discardDevicePixelRatioMonitorIfNotNeeded();
   }
