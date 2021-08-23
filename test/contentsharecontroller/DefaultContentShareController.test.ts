@@ -84,7 +84,7 @@ describe('DefaultContentShareController', () => {
       this.audioProfile = audioProfile;
     }
 
-    start(): void {
+    start(): Promise<void> {
       this.forEachObserver(observer => {
         Maybe.of(observer.audioVideoDidStart).map(f => f.bind(observer)());
       });
@@ -95,9 +95,11 @@ describe('DefaultContentShareController', () => {
         null,
         null
       );
+
+      return new Promise((resolve, reject) => resolve());
     }
 
-    stop(): void {
+    stop(): Promise<void> {
       this.forEachObserver(observer => {
         Maybe.of(observer.audioVideoDidStop).map(f =>
           f.bind(observer)(new MeetingSessionStatus(MeetingSessionStatusCode.Left))
@@ -110,6 +112,8 @@ describe('DefaultContentShareController', () => {
         null,
         null
       );
+
+      return new Promise((resolve, reject) => resolve());
     }
   }
 

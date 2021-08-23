@@ -97,7 +97,7 @@ describe('DefaultMeetingReadinessChecker', () => {
     attendeePresenceId = 'attendeeId';
     noRTCConnection = false;
 
-    start(): void {
+    start(): Promise<void> {
       this.configuration.urls.urlRewriter('fakeUDPURI?transport=udp');
       this.configuration.urls.urlRewriter('fakeTCPURI?transport=tcp');
       if (this.skipStart) {
@@ -120,9 +120,11 @@ describe('DefaultMeetingReadinessChecker', () => {
         null,
         null
       );
+
+      return new Promise((resolve, reject) => resolve());
     }
 
-    stop(): void {
+    stop(): Promise<void> {
       if (this.skipStart) {
         return;
       }
@@ -149,6 +151,7 @@ describe('DefaultMeetingReadinessChecker', () => {
           null
         );
       }
+      return new Promise((resolve, reject) => resolve());
     }
 
     getRTCPeerConnectionStats(_selector?: MediaStreamTrack): Promise<RTCStatsReport> {

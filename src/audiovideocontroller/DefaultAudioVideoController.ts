@@ -291,8 +291,8 @@ export default class DefaultAudioVideoController
       });
   }
 
-  start(options?: { signalingOnly?: boolean }): void {
-    this.startReturningPromise(options)
+  start(options?: { signalingOnly?: boolean }): Promise<void> {
+    return this.startReturningPromise(options)
       .then(() => {
         this.logger.info('start completed');
       })
@@ -673,8 +673,8 @@ export default class DefaultAudioVideoController
     });
   }
 
-  stop(): void {
-    this.stopReturningPromise();
+  stop(): Promise<void> {
+    return this.stopReturningPromise();
   }
 
   private async actionDisconnect(
@@ -719,8 +719,8 @@ export default class DefaultAudioVideoController
   }
 
   update(): boolean {
-    const result = this.sessionStateController.perform(SessionStateControllerAction.Update, () => {
-      this.actionUpdate(true);
+    const result = this.sessionStateController.perform(SessionStateControllerAction.Update, async () => {
+      await this.actionUpdate(true);
     });
     return (
       result === SessionStateControllerTransitionResult.Transitioned ||

@@ -38,7 +38,11 @@ export default class NoOpAudioVideoController extends DefaultAudioVideoControlle
 
   setAudioProfile(_audioProfile: AudioProfile): void {}
 
-  start(): void {}
+  start(): Promise<void> {
+    return new Promise((resolve, reject) => resolve()); 
+  }
 
-  stop(): void {}
+  stop(): Promise<void> { 
+    return new Promise((resolve, reject) => resolve()); 
+  }
 }
